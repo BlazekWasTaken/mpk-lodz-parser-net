@@ -3,24 +3,30 @@ using mpk_lodz_parser_net.Model;
 
 namespace mpk_lodz_parser_net;
 
-public class Timetable(int stopNum)
+public class Timetable
 {
-    private readonly RequestHelper _helper = new(query: new Dictionary<string, string>
-    {
-        { "busStopNum", stopNum.ToString() }
-    });
-    private Schedule _schedule = new();
+    public readonly Schedule Schedule;
 
-    public async Task<Schedule> GetSchedule()
+    private Timetable(Schedule schedule)
     {
-        await ParseXml();
-        return _schedule;
+        Schedule = schedule;
     }
-    private async Task ParseXml()
+    
+    public static async Task<Timetable> Create(int stopNum)
     {
-        var responseXml = await _helper.GetResponseXml();
+        var helper = RequestHelper.Create("rozklady.lodz.pl");
+        var xml = await helper.GetRequest("Home/GetTimetableReal", query: new Dictionary<string, string>
+        {
+            { "busStopNum", stopNum.ToString() }
+        });
+        var schedule = ParseXml(xml);
+        return new Timetable(schedule);
+    }
+    
+    private static Schedule ParseXml(string xml)
+    {
         var doc = new XmlDocument();
-        doc.LoadXml(responseXml);
+        doc.LoadXml(xml);
         var schedule = new Schedule();
         
         var scheduleNode = doc.DocumentElement?.SelectSingleNode("/Schedules");
@@ -60,7 +66,6 @@ public class Timetable(int stopNum)
             arrival.WhenText = t;
             
             var date = uw == string.Empty ? DateOnly.FromDateTime(DateTime.Now) : DateOnly.Parse(uw);
-            
             var time = th == string.Empty ? 
                 TimeOnly.FromDateTime(DateTime.Now).AddMinutes(int.Parse(tm.Split(' ')[0])) : 
                 TimeOnly.Parse($"{th}:{tm}");
@@ -68,6 +73,6 @@ public class Timetable(int stopNum)
             
             schedule.Arrivals.Add(arrival);
         }
-        _schedule = schedule;
+        return schedule;
     }
 }
