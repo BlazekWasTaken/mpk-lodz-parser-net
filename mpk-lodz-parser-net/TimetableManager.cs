@@ -3,16 +3,16 @@ using mpk_lodz_parser_net.Model;
 
 namespace mpk_lodz_parser_net;
 
-public class Timetable
+public class TimetableManager
 {
     public readonly Schedule Schedule;
 
-    private Timetable(Schedule schedule)
+    private TimetableManager(Schedule schedule)
     {
         Schedule = schedule;
     }
     
-    public static async Task<Timetable> Create(int stopNum)
+    public static async Task<TimetableManager> Create(int stopNum)
     {
         var helper = RequestHelper.Create("rozklady.lodz.pl");
         var xml = await helper.GetRequest("Home/GetTimetableReal", query: new Dictionary<string, string>
@@ -20,7 +20,7 @@ public class Timetable
             { "busStopNum", stopNum.ToString() }
         });
         var schedule = ParseXml(xml);
-        return new Timetable(schedule);
+        return new TimetableManager(schedule);
     }
     
     private static Schedule ParseXml(string xml)
