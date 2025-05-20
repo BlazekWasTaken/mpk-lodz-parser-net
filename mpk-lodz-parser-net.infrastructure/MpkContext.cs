@@ -1,3 +1,4 @@
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using mpk_lodz_parser_net.infrastructure.Model;
 
@@ -7,7 +8,9 @@ public class MpkContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseSqlite("Filename=:memory:");
+        var connection = new SqliteConnection("DataSource=:memory:");
+        connection.Open();
+        options.UseSqlite(connection);
     }
     
     public DbSet<Vehicle> Vehicles { get; set; }
