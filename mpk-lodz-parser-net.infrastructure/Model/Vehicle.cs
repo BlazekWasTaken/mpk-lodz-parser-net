@@ -1,4 +1,4 @@
-namespace mpk_lodz_parser_net.Model;
+namespace mpk_lodz_parser_net.infrastructure.Model;
 
 public class Vehicle
 {
