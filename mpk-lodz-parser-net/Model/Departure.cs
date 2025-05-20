@@ -1,6 +1,6 @@
 namespace mpk_lodz_parser_net.Model;
 
-public class Arrival
+public class Departure
 {
     public string? Number { get; set; }
     public DateTime When { get; set; }

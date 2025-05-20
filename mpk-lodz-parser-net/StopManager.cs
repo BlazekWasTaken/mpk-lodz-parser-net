@@ -6,7 +6,7 @@ namespace mpk_lodz_parser_net;
 
 public class StopManager
 {
-    public readonly List<Stop> Stops;
+    public List<Stop> Stops { get; }
 
     private StopManager(List<Stop> stops)
     {
@@ -29,7 +29,7 @@ public class StopManager
         foreach (var node in root.AsArray())
         {
             var stop = new Stop();
-            var list =  node.AsArray();
+            var list = node.AsArray();
             
             if (list.GetValueKind() != JsonValueKind.Array) throw new Exception("Json is not an array");
             if (list.AsArray().Count != 8) throw new Exception("Stop list must have 8 elements");
