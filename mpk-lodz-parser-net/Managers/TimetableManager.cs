@@ -1,4 +1,4 @@
-namespace mpk_lodz_parser_net;
+namespace mpk_lodz_parser_net.Managers;
 
 public class TimetableManager
 {

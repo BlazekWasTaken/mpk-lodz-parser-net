@@ -7,7 +7,7 @@ namespace mpk_lodz_parser_net.infrastructure.Repositories;
 public class StopRepository(MpkContext context) : IStopRepository
 {
     public async Task<Stop> GetStopById(int id) 
-        => (await context.Stops.FindAsync(id))!;
+        => (await context.Stops.SingleOrDefaultAsync(s => s.Id == id))!;
 
     public async Task<Stop> GetStopByNumber(int number) 
         => (await context.Stops.SingleOrDefaultAsync(s => s.Number == number))!;
@@ -17,6 +17,9 @@ public class StopRepository(MpkContext context) : IStopRepository
 
     public async Task AddStop(Stop stop) 
         => await context.Stops.AddAsync(stop);
+
+    public async Task AddStopRange(IEnumerable<Stop> stops)
+        => await context.Stops.AddRangeAsync(stops);
 
     public async Task SaveChangesAsync() 
         => await context.SaveChangesAsync();

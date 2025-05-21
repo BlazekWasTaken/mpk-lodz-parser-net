@@ -1,7 +1,7 @@
 using System.Web;
 using Flurl.Http;
 
-namespace mpk_lodz_parser_net;
+namespace mpk_lodz_parser_net.Helpers;
 
 public class RequestHelper
 {

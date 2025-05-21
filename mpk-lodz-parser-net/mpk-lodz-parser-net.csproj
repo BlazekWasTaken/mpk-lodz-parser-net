@@ -10,5 +10,9 @@
     <ItemGroup>
       <PackageReference Include="Flurl.Http" Version="4.0.2" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\mpk-lodz-parser-net.infrastructure\mpk-lodz-parser-net.infrastructure.csproj" />
+    </ItemGroup>
     
 </Project>

@@ -10,8 +10,16 @@ public class MpkContext : DbContext
     {
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
-        options.UseSqlite(connection);
+        options.UseSqlite(connection).EnableSensitiveDataLogging();
     }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Stop>()
+            .HasMany(e => e.Vehicles)
+            .WithMany(x => x.Stops);
+    }
+
     
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Stop> Stops { get; set; }

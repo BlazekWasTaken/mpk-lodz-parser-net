@@ -9,5 +9,6 @@ public interface IVehicleRepository
     IAsyncEnumerable<Vehicle> GetAllVehicles();
     IAsyncEnumerable<Vehicle> GetVehiclesByType(VehicleType type);
     Task AddVehicle(Vehicle vehicle);
+    Task AddVehicleRange(IEnumerable<Vehicle> vehicles);
     Task SaveChangesAsync();
 }

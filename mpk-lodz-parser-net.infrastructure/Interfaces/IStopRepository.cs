@@ -8,5 +8,6 @@ public interface IStopRepository
     Task<Stop> GetStopByNumber(int number);
     IAsyncEnumerable<Stop> GetAllStops();
     Task AddStop(Stop stop);
+    Task AddStopRange(IEnumerable<Stop> stops);
     Task SaveChangesAsync();
 }

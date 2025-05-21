@@ -21,6 +21,9 @@ public class VehicleRepository(MpkContext context) : IVehicleRepository
     public async Task AddVehicle(Vehicle vehicle) 
         => await context.Vehicles.AddAsync(vehicle);
 
+    public async Task AddVehicleRange(IEnumerable<Vehicle> vehicles)
+        => await context.Vehicles.AddRangeAsync(vehicles);
+
     public async Task SaveChangesAsync()  
         => await context.SaveChangesAsync();
 }

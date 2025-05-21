@@ -1,26 +1,15 @@
 using System.Xml;
+using mpk_lodz_parser_net.Helpers;
 using mpk_lodz_parser_net.Model;
 
-namespace mpk_lodz_parser_net;
+namespace mpk_lodz_parser_net.Managers;
 
-public class DepartureManager
+public abstract class DepartureManager
 {
-    public Schedule Schedule { get; }
-
-    private DepartureManager(Schedule schedule)
+    public static async Task<Schedule> GetNextDepartures(int stopNum, RequestHelper requestHelper)
     {
-        Schedule = schedule;
-    }
-    
-    public static async Task<DepartureManager> Create(int stopNum)
-    {
-        var helper = RequestHelper.Create("rozklady.lodz.pl");
-        var xml = await helper.GetRequest("Home/GetTimetableReal", query: new Dictionary<string, string>
-        {
-            { "busStopNum", stopNum.ToString() }
-        });
-        var schedule = ParseXml(xml);
-        return new DepartureManager(schedule);
+        var xml = await requestHelper.GetRequest("Home/GetTimetableReal");
+        return ParseXml(xml);
     }
     
     private static Schedule ParseXml(string xml)
