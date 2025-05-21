@@ -12,11 +12,8 @@ public class VehicleRepository(MpkContext context) : IVehicleRepository
     public async Task<Vehicle> GetVehicleByNumber(string number) 
         => (await context.Vehicles.SingleOrDefaultAsync(v => v.Number == number))!;
 
-    public IAsyncEnumerable<Vehicle> GetAllVehicles() 
-        => context.Vehicles.AsAsyncEnumerable();
-
-    public IAsyncEnumerable<Vehicle> GetVehiclesByType(VehicleType type) 
-        => context.Vehicles.Where(v => v.Type == type).AsAsyncEnumerable();
+    public IQueryable<Vehicle> GetAllVehicles() 
+        => context.Vehicles;
 
     public async Task AddVehicle(Vehicle vehicle) 
         => await context.Vehicles.AddAsync(vehicle);

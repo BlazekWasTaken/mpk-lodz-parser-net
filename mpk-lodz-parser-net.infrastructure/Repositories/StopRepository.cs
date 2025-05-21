@@ -12,8 +12,8 @@ public class StopRepository(MpkContext context) : IStopRepository
     public async Task<Stop> GetStopByNumber(int number) 
         => (await context.Stops.SingleOrDefaultAsync(s => s.Number == number))!;
 
-    public IAsyncEnumerable<Stop> GetAllStops() 
-        => context.Stops.AsAsyncEnumerable();
+    public IQueryable<Stop> GetAllStops() 
+        => context.Stops;
 
     public async Task AddStop(Stop stop) 
         => await context.Stops.AddAsync(stop);

@@ -6,7 +6,7 @@ public interface IStopRepository
 {
     Task<Stop> GetStopById(int id);
     Task<Stop> GetStopByNumber(int number);
-    IAsyncEnumerable<Stop> GetAllStops();
+    IQueryable<Stop> GetAllStops();
     Task AddStop(Stop stop);
     Task AddStopRange(IEnumerable<Stop> stops);
     Task SaveChangesAsync();
