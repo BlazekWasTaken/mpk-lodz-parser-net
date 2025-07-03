@@ -4,7 +4,7 @@ using mpk_lodz_parser_net.Model;
 
 namespace mpk_lodz_parser_net.Managers;
 
-public abstract class DepartureManager
+public abstract class ScheduleManager
 {
     public static async Task<Schedule> GetNextDepartures(int stopNum, RequestHelper requestHelper)
     {
@@ -29,7 +29,8 @@ public abstract class DepartureManager
         var stopNode = doc.DocumentElement?.SelectSingleNode("/Schedules/Stop");
         if (stopNode == null)
             throw new Exception("No response xml returned");
-        schedule.Stop = stopNode.Attributes?.GetNamedItem("name")?.InnerText;
+        // schedule.StopNum = TODO: get stop number
+        schedule.StopName = stopNode.Attributes?.GetNamedItem("name")?.InnerText;
         schedule.Comment = stopNode.Attributes?.GetNamedItem("ds")?.InnerText;
         
         var arrivalNodes = doc.SelectNodes("/Schedules/Stop/Day/R");
