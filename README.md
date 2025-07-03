@@ -2,5 +2,4 @@
 
 ## concept diagram
 
-
-![Label](mpk-lodz-parser-net.drawio.svg)
+![diagram](mpk-lodz-parser-net.drawio.svg)
