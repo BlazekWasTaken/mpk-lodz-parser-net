@@ -1,18 +1,25 @@
 using System.Xml;
 using mpk_lodz_parser_net.Helpers;
+using mpk_lodz_parser_net.infrastructure.Interfaces;
+using mpk_lodz_parser_net.infrastructure.Model;
 using mpk_lodz_parser_net.Model;
 
 namespace mpk_lodz_parser_net.Managers;
 
 public abstract class LiveScheduleManager
 {
-    public static async Task<Schedule> GetNextDepartures(int stopNum, RequestHelper requestHelper)
+    public static async Task<Schedule> GetNextDepartures(int stopNum, RequestHelper requestHelper, IStopRepository stopRepository)
     {
-        var xml = await requestHelper.GetRequest("Home/GetTimetableReal");
-        return ParseXml(xml);
+        var xml = await requestHelper.GetRequest("Home/GetTimetableReal", new  Dictionary<string, string>
+        {
+            { "busStopNum", stopNum.ToString() }
+        });
+        
+        var stop = await stopRepository.GetStopByNumber(stopNum);
+        return ParseXml(xml, stop);
     }
     
-    private static Schedule ParseXml(string xml)
+    private static Schedule ParseXml(string xml, Stop stop)
     {
         var doc = new XmlDocument();
         doc.LoadXml(xml);
@@ -29,8 +36,8 @@ public abstract class LiveScheduleManager
         var stopNode = doc.DocumentElement?.SelectSingleNode("/Schedules/Stop");
         if (stopNode == null)
             throw new Exception("No response xml returned");
-        // schedule.StopNum = TODO: get stop number
-        schedule.StopName = stopNode.Attributes?.GetNamedItem("name")?.InnerText;
+
+        schedule.Stop = stop;
         schedule.Comment = stopNode.Attributes?.GetNamedItem("ds")?.InnerText;
         
         var arrivalNodes = doc.SelectNodes("/Schedules/Stop/Day/R");
