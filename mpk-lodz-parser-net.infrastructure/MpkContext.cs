@@ -19,7 +19,6 @@ public class MpkContext : DbContext
             .HasMany(e => e.Vehicles)
             .WithMany(x => x.Stops);
     }
-
     
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Stop> Stops { get; set; }

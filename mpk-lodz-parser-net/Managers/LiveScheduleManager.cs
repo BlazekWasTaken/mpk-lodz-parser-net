@@ -4,7 +4,7 @@ using mpk_lodz_parser_net.Model;
 
 namespace mpk_lodz_parser_net.Managers;
 
-public abstract class ScheduleManager
+public abstract class LiveScheduleManager
 {
     public static async Task<Schedule> GetNextDepartures(int stopNum, RequestHelper requestHelper)
     {

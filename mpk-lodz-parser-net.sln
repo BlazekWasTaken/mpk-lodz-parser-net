@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpk-lodz-parser-net", "mpk-lodz-parser-net\mpk-lodz-parser-net.csproj", "{C81AA4B0-3E68-4F98-87F5-1874EAAACBF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "parser-test", "parser-test\parser-test.csproj", "{87E3A79C-1CD3-4323-8036-5F450294C8B6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpk-lodz-parser-net.infrastructure", "mpk-lodz-parser-net.infrastructure\mpk-lodz-parser-net.infrastructure.csproj", "{16271953-16B7-4777-AB44-6968E26F30FE}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{C81AA4B0-3E68-4F98-87F5-1874EAAACBF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C81AA4B0-3E68-4F98-87F5-1874EAAACBF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C81AA4B0-3E68-4F98-87F5-1874EAAACBF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87E3A79C-1CD3-4323-8036-5F450294C8B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87E3A79C-1CD3-4323-8036-5F450294C8B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87E3A79C-1CD3-4323-8036-5F450294C8B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87E3A79C-1CD3-4323-8036-5F450294C8B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16271953-16B7-4777-AB44-6968E26F30FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16271953-16B7-4777-AB44-6968E26F30FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16271953-16B7-4777-AB44-6968E26F30FE}.Release|Any CPU.ActiveCfg = Release|Any CPU

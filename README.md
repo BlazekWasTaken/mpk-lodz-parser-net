@@ -1,5 +1,9 @@
 # mpk-lodz-parser-net
 
-## concept diagram
+## components
 
-![diagram](mpk-lodz-parser-net.drawio.svg)
+![component diagram](./diagrams/components.drawio.svg)
+
+## structure
+
+![structure diagram](./diagrams/structure.drawio.svg)
