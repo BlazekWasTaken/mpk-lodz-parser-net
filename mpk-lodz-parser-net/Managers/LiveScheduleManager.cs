@@ -8,7 +8,7 @@ namespace mpk_lodz_parser_net.Managers;
 
 public abstract class LiveScheduleManager
 {
-    public static async Task<Schedule> GetNextDepartures(int stopNum, RequestHelper requestHelper, IStopRepository stopRepository)
+    public static async Task<Schedule> GetNextDepartures(int stopNum, RequestHelper requestHelper, IStopRepository stopRepository, IVehicleRepository vehicleRepository)
     {
         var xml = await requestHelper.GetRequest("Home/GetTimetableReal", new  Dictionary<string, string>
         {
@@ -16,10 +16,10 @@ public abstract class LiveScheduleManager
         });
         
         var stop = await stopRepository.GetStopByNumber(stopNum);
-        return ParseXml(xml, stop);
+        return await ParseXml(xml, stop, vehicleRepository);
     }
     
-    private static Schedule ParseXml(string xml, Stop stop)
+    private static async Task<Schedule> ParseXml(string xml, Stop stop, IVehicleRepository vehicleRepository)
     {
         var doc = new XmlDocument();
         doc.LoadXml(xml);
@@ -46,9 +46,12 @@ public abstract class LiveScheduleManager
         
         foreach (var arrivalNode in arrivalNodes.OfType<XmlNode>())
         {
+            var number = arrivalNode.Attributes?.GetNamedItem("nr")?.InnerText;
+            var vehicle = await vehicleRepository.GetVehicleByNumber(number);
+            
             var arrival = new Departure
             {
-                Number = arrivalNode.Attributes?.GetNamedItem("nr")?.InnerText,
+                Vehicle = vehicle,
                 Direction = arrivalNode.Attributes?.GetNamedItem("dir")?.InnerText
             };
 

@@ -1,8 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Microsoft.EntityFrameworkCore;
 using mpk_lodz_parser_net.Helpers;
-using mpk_lodz_parser_net.infrastructure;
 using mpk_lodz_parser_net.infrastructure.Interfaces;
 using mpk_lodz_parser_net.infrastructure.Model;
 
